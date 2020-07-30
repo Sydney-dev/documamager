@@ -8,6 +8,8 @@ import com.qdb.documan.post.service.PostService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -36,10 +38,12 @@ class PostServiceTest {
 
     @Test
     void shouldSavePost() {
+        when(postClient.findUserPosts(Mockito.anyLong())).thenReturn(createPostDtos());
         when(postRepository.saveAll(anyList())).thenReturn(createPosts());
         List<PostDto> postDtos = postService.savePosts("150", 15L);
         assertThat(postDtos).hasSize(1);
     }
+
 
     @Test
     void findPostsUsingDocument() {
@@ -53,7 +57,6 @@ class PostServiceTest {
         assertThat(postDtos.get(0).getUserId()).isEqualTo(USER_ID);
     }
 
-
     private List<Post> createPosts() {
         return Arrays.asList(createPost());
     }
@@ -65,18 +68,18 @@ class PostServiceTest {
         return post;
     }
 
+
+    private List<PostDto> createPostDtos() {
+        return Arrays.asList(createPostDto());
+    }
+
     private PostDto createPostDto() {
         PostDto postDto = new PostDto();
         postDto.setUserId(USER_ID);
         return postDto;
     }
 
-
     private Optional<List<Post>> getPosts() {
         return Optional.of(createPosts());
-    }
-
-    @Test
-    void findPost() {
     }
 }

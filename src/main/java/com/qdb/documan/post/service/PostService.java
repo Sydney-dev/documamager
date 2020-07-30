@@ -32,7 +32,7 @@ public class PostService {
         List<PostDto> userPosts = postClient.findUserPosts(userId);
 
         if (CollectionUtils.isEmpty(userPosts)) {
-           throw new PostException(POST_NOT_FOUND);
+           return userPosts;
         }
 
         List<Post> posts = postRepository.saveAll(mapPosts(userPosts, documentId));
