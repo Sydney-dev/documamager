@@ -1,4 +1,4 @@
-package com.qdb.documan.service;
+package com.qdb.documan.document.service;
 
 import com.qdb.documan.document.domain.Document;
 import com.qdb.documan.document.dto.DocumentDto;
