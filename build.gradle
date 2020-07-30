@@ -39,6 +39,8 @@ dependencyManagement {
 	}
 }
 
+apply plugin: 'jacoco'
+
 test {
 	useJUnitPlatform()
 }
